@@ -25,28 +25,45 @@ const pool = new Pool({
 
 
 //function for menu options
+function menuOptions() {
+
+}
 
 
 //function to view all departments
+function departmentsView() {
 
+}
 
 //function to view all roles
+function rolesView() {
 
+}
 
 //function to view all employees
+function employeesView() {
 
+}
 
 //function to add a department
+function addDepartment() {
 
+}
 
 //function to add a role
+function addRole() {
 
+}
 
 //function to add an employee
+function addEmployee() {
 
+}
 
 //function to update an employee role
+function updateEmployeeRole() {
 
+}
 
 //port listener
 app.listen(PORT, () => {
