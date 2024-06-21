@@ -42,7 +42,50 @@ pool.query('SELECT NOW()', (error, results) => {
 
 //function for menu options
 function menuOptions() {
-
+    inquirer.prompt({
+        name: 'menu',
+        type: 'list',
+        message: 'How can I help you today?',
+        choices: [
+            'View all departments',
+            'View all roles',
+            'View all employees',
+            'Add a department',
+            'Add a role',
+            'Add an employee',
+            'Update an employee role',
+            'Exit',
+        ]
+    })
+    .then((qs) => {
+        switch (qs.menu) {
+            case 'View all departments':
+                departmentsView();
+                break;
+            case 'View all roles':
+                rolesView();
+                break;
+            case 'View all employees':
+                employeesView();
+                break;
+            case 'Add a department':
+                addDepartment();
+                break;
+            case 'Add a role':
+                addRole();
+                break;
+            case 'Add an employee':
+                addEmployee();
+                break;
+            case 'Update an employee role':
+                updateEmployeeRole();
+                break;
+            case 'Exit':
+                console.log('Goodbye!');
+                process.exit();
+                break;
+        }
+    }
 }
 
 
