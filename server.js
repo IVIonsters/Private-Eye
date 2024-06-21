@@ -22,7 +22,23 @@ const pool = new Pool({
 
 
 //connect to database
+pool.connect((error) => {
+    if (error) {
+        console.log('Error connecting to database', error.message);
+    } else {
+        console.log('Connected to database');
+        menuOptions();
+    }
+});
 
+//test database connection
+pool.query('SELECT NOW()', (error, results) => {
+    if (error) {
+        console.log('Error executing query', error.message);
+    } else {
+        console.log('Database connected successfully....');
+    }
+});
 
 //function for menu options
 function menuOptions() {
