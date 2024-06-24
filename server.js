@@ -105,7 +105,25 @@ function departmentsView() {
 
 //function to view all roles
 function rolesView() {
-
+    const query = `
+        SELECT
+            r.id,
+            r.title,
+            r.salary,
+            d.name AS department
+        FROM
+            role r
+        JOIN
+            department d ON r.department_id = d.id;
+            `;
+    pool.query(query, (error, results) => {
+        if (error) {
+            console.log('Error executing query', error.message);
+        } else {
+            console.table(results.rows);
+            menuOptions();
+        }
+    });
 }
 
 //function to view all employees
