@@ -156,12 +156,62 @@ function employeesView() {
 
 //function to add a department
 function addDepartment() {
-
+    inquirer.prompt({
+        name: 'name',
+        type: 'input',
+        message: 'Enter the department name:',
+    })
+    .then((qs) => {
+        pool.query('INSERT INTO department (name) VALUES ($1)', [qs.name], (error, results) => {
+            if (error) {
+                console.log('Error executing query', error.message);
+            } else {
+                console.log('Department added successfully');
+                menuOptions();
+            }
+            menuOptions();
+        });
+    });
 }
 
 //function to add a role
-function addRole() {
+async function addRole() {
+    const { rows } = await pool.query('SELECT * FROM department');
+    const departmentChoices = rows.map((department) => ({
+        name: department.name,
+        value: department.id,
+    }));
+    inquirer.prompt([
+        {
+            name: 'title',
+            type: 'input',
+            message: 'Enter the role title:',
+        },
+        {
+            name: 'salary',
+            type: 'input',
+            message: 'Enter the role salary:',
+        },
+        {
+            name: 'department_id',
+            type: 'list',
+            message: 'Select the department for this role:',
+            choices: departmentChoices,
+        },
+    ])
+    .then((qs) => {
+        const pstgrsQuery = 'INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)';
+        const values = [qs.title, qs.salary, qs.department_id];
 
+        pool.query(pstgrsQuery, values, (error, results) => {
+            if (error) {
+                console.log('Error executing query', error.message);
+            } else {
+                console.log('Role added successfully');
+            }
+            menuOptions();
+    });
+});
 }
 
 //function to add an employee
