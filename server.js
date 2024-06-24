@@ -128,7 +128,30 @@ function rolesView() {
 
 //function to view all employees
 function employeesView() {
-
+    const query = `
+        SELECT
+            e.id,
+            e.first_name,
+            e.last_name,
+            r.title AS role,
+            d.name AS department,
+            e.salary,
+            e.manager_id
+        FROM
+            employee e
+        LEFT JOIN
+            role r ON e.role_id = r.id
+        LEFT JOIN
+            department d ON r.department_id = d.id
+            `;
+    pool.query(query, (error, results) => {
+        if (error) {
+            console.log('Error executing query', error.message);
+        } else {
+            console.table(results.rows);
+            menuOptions();
+        }
+    });
 }
 
 //function to add a department
