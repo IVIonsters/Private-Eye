@@ -83,9 +83,11 @@ function menuOptions() {
             case 'Exit':
                 console.log('Goodbye!');
                 process.exit();
-                break;
+            default:
+                console.log('Invalid selection');
+                menuOptions();
         }
-    }
+    });
 }
 
 
