@@ -215,8 +215,54 @@ async function addRole() {
 }
 
 //function to add an employee
-function addEmployee() {
+async function addEmployee() {
+    const { rows: roles } = await pool.query('SELECT * FROM role');
+    const { rows: managers } = await pool.query('SELECT * FROM employee');
+    const roleChoices = roles.map((role) => ({
+        name: role.title,
+        value: role.id,
+    }));
+    const managerChoices = managers.map((manager) => ({
+        name: `${manager.first_name} ${manager.last_name}`,
+        value: manager.id,
+    }));
+    inquirer.prompt([
+        {
+            name: 'firstName',
+            type: 'input',
+            message: 'Enter the employee first name:',
+        },
+        {
+            name: 'lastName',
+            type: 'input',
+            message: 'Enter the employee last name:',
+        },
+        {
+            name: 'role',
+            type: 'list',
+            message: 'Select the role for this employee:',
+            choices: roleChoices,
+        },
+        {
+            name: 'manager',
+            type: 'list',
+            message: 'Select the manager for this employee:',
+            choices: managerChoices,
+        },
+    ])
+    .then((qs) => {
+        const pstgrsQuery = 'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)';
+        const values = [qs.firstName, qs.lastName, qs.role, qs.manager];
 
+        pool.query(pstgrsQuery, values, (error, results) => {
+            if (error) {
+                console.log('Error executing query', error.message);
+            } else {
+                console.log(`Employee added successfully ${qs.firstName} ${qs.lastName}`);
+            }
+            menuOptions();
+        });
+    });
 }
 
 //function to update an employee role
