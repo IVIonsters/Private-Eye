@@ -93,7 +93,14 @@ function menuOptions() {
 
 //function to view all departments
 function departmentsView() {
-
+    pool.query('SELECT * FROM department', (error, results) => {
+        if (error) {
+            console.log('Error executing query', error.message);
+        } else {
+            console.table(results.rows);
+            menuOptions();
+        }
+    });
 }
 
 //function to view all roles
