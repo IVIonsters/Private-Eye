@@ -14,6 +14,15 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Set up database connection
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT, // Ensure the correct port is specified
+});
+
 // Function to create database if it doesn't exist
 async function createDatabase() {
     const client = new Client({
@@ -41,19 +50,9 @@ async function createDatabase() {
     }
 }
 
-
 // Call the function to create the database if it doesn't exist
 createDatabase()
     .then(() => {
-        // Set up database connection
-        const pool = new Pool({
-            user: process.env.DB_USER,
-            host: process.env.DB_HOST,
-            database: process.env.DB_DATABASE,
-            password: process.env.DB_PASS,
-            port: process.env.DB_PORT, // Ensure the correct port is specified
-        });
-
         // Verify password is passed as a string
         console.log(`DB_PASS type: ${typeof process.env.DB_PASS}`);
 
@@ -213,7 +212,6 @@ function addDepartment() {
                         console.log("Department added successfully");
                         menuOptions();
                     }
-                    menuOptions();
                 }
             );
         });
@@ -362,3 +360,4 @@ async function updateEmployeeRole() {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+

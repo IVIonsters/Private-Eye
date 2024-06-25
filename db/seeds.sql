@@ -1,4 +1,4 @@
-\ c privateeyeDB 
+\ c mydatabase 
 
 -- Insert departments
 INSERT INTO department (name)

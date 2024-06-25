@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS privateeyeDB;
-CREATE DATABASE privateeyeDB;
+DROP DATABASE IF EXISTS mydatabase;
+CREATE DATABASE mydatabase;
 
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
