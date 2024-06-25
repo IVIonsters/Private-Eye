@@ -23,61 +23,27 @@ const pool = new Pool({
     port: process.env.DB_PORT, // Ensure the correct port is specified
 });
 
-// Function to create database if it doesn't exist
-async function createDatabase() {
-    const client = new Client({
-        user: process.env.DB_USER,
-        host: process.env.DB_HOST,
-        database: 'postgres',
-        password: process.env.DB_PASS,
-        port: process.env.DB_PORT
-    });
+// Verify password is passed as a string
+console.log(`DB_PASS type: ${typeof process.env.DB_PASS}`);
 
-    try {
-        await client.connect();
-        const dbName = process.env.DB_DATABASE;
-        const res = await client.query(`SELECT 1 FROM pg_database WHERE lower(datname) = lower('${dbName}')`);
-        if (res.rowCount === 0) {
-            await client.query(`CREATE DATABASE "${dbName}"`);
-            console.log(`Database "${dbName}" created successfully`);
-        } else {
-            console.log(`Database "${dbName}" already exists`);
-        }
-    } catch (err) {
-        console.error('Error checking/creating database:', err.message);
-    } finally {
-        await client.end();
+// Connect to database
+pool.connect((error) => {
+    if (error) {
+        console.error("Error connecting to database:", error.message);
+    } else {
+        console.log("Connected to database");
+        menuOptions(); // Start your application logic after successful connection
     }
-}
+});
 
-// Call the function to create the database if it doesn't exist
-createDatabase()
-    .then(() => {
-        // Verify password is passed as a string
-        console.log(`DB_PASS type: ${typeof process.env.DB_PASS}`);
-
-        // Connect to database
-        pool.connect((error) => {
-            if (error) {
-                console.error("Error connecting to database:", error.message);
-            } else {
-                console.log("Connected to database");
-                menuOptions();
-            }
-        });
-
-        // Test database connection
-        pool.query("SELECT NOW()", (error, results) => {
-            if (error) {
-                console.error("Error executing query:", error.message);
-            } else {
-                console.log("Database connected successfully....");
-            }
-        });
-    })
-    .catch((err) => {
-        console.error("Error creating database:", err.message);
-    });
+// Test database connection
+pool.query("SELECT NOW()", (error, results) => {
+    if (error) {
+        console.error("Error executing query:", error.message);
+    } else {
+        console.log("Database connected successfully....");
+    }
+});
 
 //function for menu options
 function menuOptions() {
@@ -174,7 +140,7 @@ function employeesView() {
             e.last_name,
             r.title AS role,
             d.name AS department,
-            e.salary,
+            r.salary,
             e.manager_id
         FROM
             employee e
