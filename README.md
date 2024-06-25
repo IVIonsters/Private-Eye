@@ -44,7 +44,7 @@
 
 ## Demonstration
 
-https://github.com/IVIonsters/Private-Eye/blob/main/assets/testingvideo.mp4
+<video controls src="https://github.com/IVIonsters/Private-Eye/blob/aa23daee6db442104f4feb961b6c498db2e1a38f/assets/testingvideo.mp4" title="assets/testingvideo.mp4"></video>
 
 ![SCREENSHOTS GO HERE](./assets/final.png)
 
