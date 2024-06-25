@@ -4,7 +4,7 @@ require("dotenv").config();
 // Set Project Dependencies
 const inquirer = require("inquirer");
 const express = require("express");
-const { Pool, Client } = require("pg");
+const { Pool } = require("pg");
 
 // Set up express
 const app = express();
