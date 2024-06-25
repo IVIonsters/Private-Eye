@@ -24,12 +24,12 @@ const pool = new Pool({
 });
 
 // verify password is passed a string
-console.log(typeof process.env.DB_PASS);
+console.log(`DB_PASS type: ${typeof process.env.DB_PASS}`);
 
 //connect to database
 pool.connect((error) => {
     if (error) {
-        console.log('Error connecting to database', error.message);
+        console.error('Error connecting to database:', error.message);
     } else {
         console.log('Connected to database');
         menuOptions();
@@ -39,7 +39,7 @@ pool.connect((error) => {
 //test database connection
 pool.query('SELECT NOW()', (error, results) => {
     if (error) {
-        console.log('Error executing query', error.message);
+        console.error('Error executing query', error.message);
     } else {
         console.log('Database connected successfully....');
     }
@@ -100,7 +100,7 @@ function menuOptions() {
 function departmentsView() {
     pool.query('SELECT * FROM department', (error, results) => {
         if (error) {
-            console.log('Error executing query', error.message);
+            console.error('Error executing query', error.message);
         } else {
             console.table(results.rows);
             menuOptions();
@@ -123,7 +123,7 @@ function rolesView() {
             `;
     pool.query(query, (error, results) => {
         if (error) {
-            console.log('Error executing query', error.message);
+            console.error('Error executing query', error.message);
         } else {
             console.table(results.rows);
             menuOptions();
@@ -151,7 +151,7 @@ function employeesView() {
             `;
     pool.query(query, (error, results) => {
         if (error) {
-            console.log('Error executing query', error.message);
+            console.error('Error executing query', error.message);
         } else {
             console.table(results.rows);
             menuOptions();
@@ -169,7 +169,7 @@ function addDepartment() {
     .then((qs) => {
         pool.query('INSERT INTO department (name) VALUES ($1)', [qs.name], (error, results) => {
             if (error) {
-                console.log('Error executing query', error.message);
+                console.error('Error executing query', error.message);
             } else {
                 console.log('Department added successfully');
                 menuOptions();
@@ -210,7 +210,7 @@ async function addRole() {
 
         pool.query(pstgrsQuery, values, (error, results) => {
             if (error) {
-                console.log('Error executing query', error.message);
+                console.error('Error executing query', error.message);
             } else {
                 console.log('Role added successfully');
             }
@@ -261,7 +261,7 @@ async function addEmployee() {
 
         pool.query(pstgrsQuery, values, (error, results) => {
             if (error) {
-                console.log('Error executing query', error.message);
+                console.error('Error executing query', error.message);
             } else {
                 console.log(`Employee added successfully ${qs.firstName} ${qs.lastName}`);
             }
@@ -302,7 +302,7 @@ async function updateEmployeeRole() {
 
         pool.query(pstgrsQuery, values, (error, results) => {
             if (error) {
-                console.log('Error executing query', error.message);
+                console.error('Error executing query', error.message);
             } else {
                 console.log('Employee role updated successfully');
             }
