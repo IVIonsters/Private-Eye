@@ -26,10 +26,10 @@
 
 ## Features
 
-* **Auto-Recall:** Application will automatically call notes from storage on application loading.
-* **Hidden / Save Create Buttons:** Buttons are hidden until text has been input into both fields. 
-* **automatic ID Generation:** USES Npm packages to generate unique ID's for each note.
-* **Logging / Debug Integrated:** Application returns specific errors or faults for each section in the event of an error for easier debugging.
+* **Interactive Menu Options:** Users are given clear menu options on startup, allowing for easy menu use.
+* **Comprehensive Data Viewing:** Displays all data including departments, roles with salaries, and employees for easy viewing.
+* **Data Insertion:** allows users to add new departments, roles, and employees. Options for salaries and managers as well.
+* **Updates:**  Enables users to update and employee's role, allowing for flexible employee assignments.
 
 ## Usage
 
