@@ -266,7 +266,44 @@ async function addEmployee() {
 }
 
 //function to update an employee role
-function updateEmployeeRole() {
+async function updateEmployeeRole() {
+    const { rows: roles } = await pool.query('SELECT * FROM role');
+    const { rows: employees } = await pool.query('SELECT * FROM employee');
+    const roleChoices = roles.map((role) => ({
+        name: role.title,
+        value: role.id,
+    }));
+    const employeeChoices = employees.map((employee) => ({
+        name: `${employee.first_name} ${employee.last_name}`,
+        value: employee.id,
+    }));
+    inquirer.prompt([
+        {
+            name: 'employee',
+            type: 'list',
+            message: 'Select the employee to update:',
+            choices: employeeChoices,
+        },
+        {
+            name: 'role',
+            type: 'list',
+            message: 'Select the new role for this employee:',
+            choices: roleChoices,
+        },
+    ])
+    .then((qs) => {
+        const pstgrsQuery = 'UPDATE employee SET role_id = $1 WHERE id = $2';
+        const values = [qs.role, qs.employee];
+
+        pool.query(pstgrsQuery, values, (error, results) => {
+            if (error) {
+                console.log('Error executing query', error.message);
+            } else {
+                console.log('Employee role updated successfully');
+            }
+            menuOptions();
+        });
+    });
 
 }
 
