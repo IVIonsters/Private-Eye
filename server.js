@@ -1,8 +1,11 @@
-//set project requirements
+//Load Environment Variables
+require('dotenv').config();
+
+//Set Project Dependencies
 const inquirer = require('inquirer');
 const express = require('express');
 const { Pool } = require('pg');
-require('dotenv').config();
+
 
 //set up express
 const app = express();
@@ -20,6 +23,8 @@ const pool = new Pool({
     password: process.env.DB_PASS,
 });
 
+// verify password is passed a string
+console.log(typeof process.env.DB_PASS);
 
 //connect to database
 pool.connect((error) => {
