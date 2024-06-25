@@ -36,19 +36,22 @@
 * npm install to load all necessary packages.
 * npm start or node server.js will launch the application
 
-* [Note-Taker-Live-Via-Render](https://note-taker-ux3z.onrender.com)
-
 * [Private-Eye-Repo](https://github.com/IVIonsters/Private-Eye)
 
 
 
 ## Demonstration
 
-<video controls src="https://github.com/IVIonsters/Private-Eye/blob/aa23daee6db442104f4feb961b6c498db2e1a38f/assets/testingvideo.mp4" title="assets/testingvideo.mp4"></video>
+* Video Thumbnail - Click to Watch ⇩⇩
+
+[![Video Thumbnail](https://drive.google.com/thumbnail?id=16EZZzoFx-sZPe3f8vG6GF3XuvOyS5omw)](https://drive.google.com/file/d/16EZZzoFx-sZPe3f8vG6GF3XuvOyS5omw/view?usp=sharing)
+
+* Screenshot
 
 ![SCREENSHOTS GO HERE](./assets/final.png)
 
-[Video Link](https://drive.google.com/file/d/16EZZzoFx-sZPe3f8vG6GF3XuvOyS5omw/view?usp=sharing)
+
+
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
