@@ -35,7 +35,7 @@ async function createDatabase() {
 
     try {
         await client.connect();
-        const dbName = process.env.DB_DATABASE; // Ensure this is set to 'privateeyeDB'
+        const dbName = process.env.DB_DATABASE;
         const res = await client.query(`SELECT 1 FROM pg_database WHERE lower(datname) = lower('${dbName}')`);
         if (res.rowCount === 0) {
             await client.query(`CREATE DATABASE "${dbName}"`);
